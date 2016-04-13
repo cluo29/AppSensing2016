@@ -1,8 +1,11 @@
 package com.aware.plugin.app2016;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -40,6 +43,13 @@ public class Plugin extends Aware_Plugin {
         Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_SCREEN, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_LOCATION_GPS, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.FREQUENCY_LOCATION_GPS, 180);
+
+        IntentFilter application_filter = new IntentFilter();
+        application_filter.addAction(Applications.ACTION_AWARE_APPLICATIONS_FOREGROUND);
+        application_filter.addAction(Applications.ACTION_AWARE_APPLICATIONS_NOTIFICATIONS);
+        application_filter.addAction(Applications.ACTION_AWARE_APPLICATIONS_CRASHES);
+        registerReceiver(applicationListener, application_filter);
+
 
         //Any active plugin/sensor shares its overall context using broadcasts
         sContext = new ContextProducer() {
@@ -82,7 +92,35 @@ public class Plugin extends Aware_Plugin {
     }
 
 
+    private static ApplicationListener applicationListener = new ApplicationListener();
 
+    public static class ApplicationListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Applications.ACTION_AWARE_APPLICATIONS_NOTIFICATIONS)) {
+                Log.d("Session notification","101");
+
+                Cursor cursor = context.getContentResolver().query(Applications_Provider.Applications_Notifications.CONTENT_URI, null, null, null, Applications_Provider.Applications_Notifications.TIMESTAMP + " DESC LIMIT 1");
+                if (cursor != null && cursor.moveToFirst()) {
+                    String application_notification = cursor.getString(cursor.getColumnIndex(Applications_Provider.Applications_Notifications.PACKAGE_NAME));
+                    Log.d("Session notification", application_notification);
+                }
+                if (cursor != null && !cursor.isClosed()) cursor.close();
+            }
+
+            if (intent.getAction().equals(Applications.ACTION_AWARE_APPLICATIONS_CRASHES)) {
+
+                Log.d("Session notification","113");
+
+                Cursor cursor = context.getContentResolver().query(Applications_Provider.Applications_Notifications.CONTENT_URI, null, null, null, Applications_Provider.Applications_Crashes.TIMESTAMP + " DESC LIMIT 1");
+                if (cursor != null && cursor.moveToFirst()) {
+                    String application_notification = cursor.getString(cursor.getColumnIndex(Applications_Provider.Applications_Crashes.PACKAGE_NAME));
+                    Log.d("Session crash", application_notification);
+                }
+                if (cursor != null && !cursor.isClosed()) cursor.close();
+            }
+        }
+    }
     //This function gets called every 5 minutes by AWARE to make sure this plugin is still running.
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -94,7 +132,15 @@ public class Plugin extends Aware_Plugin {
     public void onDestroy() {
         super.onDestroy();
 
+        //TODO
 
+        if(applicationListener != null) { unregisterReceiver(applicationListener); }
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_INSTALLATIONS, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_APPLICATIONS, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_NOTIFICATIONS, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_CRASHES, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_SCREEN, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_LOCATION_GPS, false);
         //Stop plugin
         Aware.stopPlugin(this, "com.aware.plugin.acpunlock");
     }
