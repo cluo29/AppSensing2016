@@ -33,8 +33,10 @@ public class Plugin extends Aware_Plugin {
         //Activate programmatically any sensors/plugins you need here
         //e.g., Aware.setSetting(this, Aware_Preferences.STATUS_ACCELEROMETER,true);
         //NOTE: if using plugin with dashboard, you can specify the sensors you'll use there.
-
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_INSTALLATIONS, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_APPLICATIONS, true);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_NOTIFICATIONS, true);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_CRASHES, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_SCREEN, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_LOCATION_GPS, true);
         Aware.setSetting(getApplicationContext(), Aware_Preferences.FREQUENCY_LOCATION_GPS, 180);
