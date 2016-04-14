@@ -22,7 +22,7 @@ import com.aware.utils.DatabaseHelper;
  * Created by Comet on 21/01/16.
  */
 public class Provider extends ContentProvider {
-    public static final int DATABASE_VERSION = 11;
+    public static final int DATABASE_VERSION = 12;
     /**
      * Provider authority: com.aware.plugin.app2016.provider.app2016
      */
@@ -47,8 +47,8 @@ public class Provider extends ContentProvider {
         public static final String _ID = "_id";
         public static final String TIMESTAMP = "timestamp";
         public static final String DEVICE_ID = "device_id";
-        public static final String ACTIVITY  = "activity";    //
-        public static final String CONFIDENCE  = "confidence";    //
+
+        public static final String STEP = "confidence";    //
     }
 
 
@@ -56,8 +56,8 @@ public class Provider extends ContentProvider {
         Unlock_Monitor_Data._ID + " integer primary key autoincrement," +
         Unlock_Monitor_Data.TIMESTAMP + " real default 0," +
         Unlock_Monitor_Data.DEVICE_ID + " text default ''," +
-        Unlock_Monitor_Data.ACTIVITY + " text default ''," +
-        Unlock_Monitor_Data.CONFIDENCE + " integer default 0," +
+
+        Unlock_Monitor_Data.STEP + " integer default 0," +
         "UNIQUE("+ Unlock_Monitor_Data.TIMESTAMP+","+ Unlock_Monitor_Data.DEVICE_ID+")"
 
 
@@ -83,8 +83,8 @@ public class Provider extends ContentProvider {
         databaseMap.put(Unlock_Monitor_Data._ID, Unlock_Monitor_Data._ID);
         databaseMap.put(Unlock_Monitor_Data.TIMESTAMP, Unlock_Monitor_Data.TIMESTAMP);
         databaseMap.put(Unlock_Monitor_Data.DEVICE_ID, Unlock_Monitor_Data.DEVICE_ID);
-        databaseMap.put(Unlock_Monitor_Data.ACTIVITY, Unlock_Monitor_Data.ACTIVITY);
-        databaseMap.put(Unlock_Monitor_Data.CONFIDENCE, Unlock_Monitor_Data.CONFIDENCE);
+
+        databaseMap.put(Unlock_Monitor_Data.STEP, Unlock_Monitor_Data.STEP);
 
         return true;
     }

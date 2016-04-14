@@ -28,7 +28,7 @@
         android:layout_toLeftOf="@+id/esm1_likert1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="low"
+        android:text="Low"
         android:layout_above="@+id/esm1_instructions2"
         android:textAlignment="gravity"
         android:gravity="center_vertical|center_horizontal"
@@ -84,7 +84,7 @@
         android:layout_toLeftOf="@+id/esm1_likert2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="low"
+        android:text="Low"
         android:textAlignment="gravity"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="18dp" />
@@ -110,7 +110,7 @@
         android:layout_toRightOf="@+id/esm1_likert2"
         android:layout_alignRight="@+id/esm1_max1"
         android:layout_alignEnd="@+id/esm1_max1"
-        android:text="high"
+        android:text="High"
         android:textAlignment="gravity"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="18dp" />
