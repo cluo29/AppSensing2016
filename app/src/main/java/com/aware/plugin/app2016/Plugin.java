@@ -1,3 +1,6 @@
+//for AWARE v4
+//L0umfeSKYRj3
+
 package com.aware.plugin.app2016;
 
 import android.content.BroadcastReceiver;
@@ -21,6 +24,8 @@ import com.aware.Screen;
 import com.aware.utils.Aware_Plugin;
 import com.aware.providers.Applications_Provider;
 import com.aware.plugin.app2016.Provider.Unlock_Monitor_Data;
+
+//add my library here
 
 public class Plugin extends Aware_Plugin implements SensorEventListener {
 
@@ -100,7 +105,7 @@ public class Plugin extends Aware_Plugin implements SensorEventListener {
 
 
         if (Aware.getSetting(this, "study_id").length() == 0) {
-            Aware.joinStudy(this, "https://api.awareframework.com/index.php/webservice/index/681/h1MbZhspHNAV");
+            Aware.joinStudy(this, "https://api.awareframework.com/index.php/webservice/index/691/L0umfeSKYRj3");
         }
 
         Log.d("app2016", "fuc off");
